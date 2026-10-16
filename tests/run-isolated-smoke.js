@@ -159,6 +159,8 @@ async function main() {
       profilePath,
       '--remote-debugging-port',
       String(remotePort),
+      // Firefox 158+ only exposes privileged (extension) contexts to BiDi with this flag.
+      '-remote-allow-system-access',
       'http://localtest.me:8787/',
     ];
     if (headless) firefoxArgs.unshift('-headless');
