@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "GlassPeek extension compatibility probe",
+  "version": "1.0.0",
+  "description": "Disposable acceptance probe for all-frames and top-level-only content scripts.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "glasspeek-compat-probe@test.invalid"
+    }
+  },
+  "permissions": [
+    "http://localtest.me/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localtest.me/*"
+      ],
+      "js": [
+        "all-frames.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "http://localtest.me/*"
+      ],
+      "js": [
+        "top-only.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

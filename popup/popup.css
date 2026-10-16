@@ -1,0 +1,133 @@
+body {
+  width: 340px;
+  min-height: 382px;
+  overflow: hidden;
+  background:
+    radial-gradient(360px 180px at 18% -8%, rgba(0, 122, 255, 0.18), transparent 68%),
+    var(--gp-page);
+}
+
+.popup-shell {
+  padding: 18px;
+}
+
+.popup-header {
+  min-height: 48px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  box-shadow: 0 6px 18px rgba(0, 90, 210, 0.2);
+  overflow: hidden;
+}
+
+.popup-title {
+  min-width: 0;
+  flex: 1;
+}
+
+.popup-title h1 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.popup-title span {
+  color: var(--gp-text-tertiary);
+  font-size: 11px;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gp-text-tertiary);
+  box-shadow: 0 0 0 4px var(--gp-surface-muted);
+}
+
+.status-dot.is-on {
+  background: var(--gp-green);
+  box-shadow: 0 0 0 4px rgba(36, 138, 61, 0.12);
+}
+
+.quick-card {
+  overflow: hidden;
+}
+
+.popup-row {
+  min-height: 77px;
+  padding: 13px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.popup-row + .popup-row {
+  border-top: 1px solid var(--gp-hairline);
+}
+
+.popup-row__title {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 650;
+}
+
+.popup-row p {
+  max-width: 210px;
+  margin: 3px 0 0;
+  overflow: hidden;
+  color: var(--gp-text-secondary);
+  font-size: 11px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.site-copy {
+  min-width: 0;
+}
+
+.site-reason {
+  color: var(--gp-text-tertiary) !important;
+}
+
+.site-reason.is-override {
+  color: var(--gp-blue) !important;
+}
+
+.quick-actions {
+  margin-top: 13px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 9px;
+}
+
+.popup-footer {
+  min-height: 50px;
+  padding: 14px 6px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--gp-text-tertiary);
+  font-size: 10.5px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.popup-message {
+  color: var(--gp-blue);
+  font-weight: 620;
+}
+
+@media (forced-colors: active) {
+  .status-dot.is-on { background: Highlight; }
+}

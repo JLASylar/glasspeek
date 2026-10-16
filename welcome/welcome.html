@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="welcome_title">欢迎使用 GlassPeek</title>
+  <link rel="stylesheet" href="../shared/apple.css">
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <main class="welcome-shell">
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__icon"><img src="../icons/icon.svg" alt="GlassPeek" width="92" height="92"></div>
+      <p class="hero__eyebrow" data-i18n="welcome_installed">安装完成</p>
+      <h1 data-i18n="welcome_heading">不离开当前页面，也能先看一眼链接</h1>
+      <p class="hero__lead" data-i18n="welcome_lead">GlassPeek 把原网页放进轻盈、可移动的预览窗口；严格网站可切换到复用的 Firefox 完整网页小窗。</p>
+      <div class="hero__actions">
+        <button class="gp-button gp-button--primary" type="button" id="openSettings" data-i18n="welcome_customize">开始个性化</button>
+        <button class="gp-button" type="button" id="closeWelcome" data-i18n="welcome_close">稍后再说</button>
+      </div>
+    </section>
+
+    <section class="feature-grid" aria-label="Highlights" data-i18n-aria-label="welcome_highlights">
+      <article class="feature-card gp-glass">
+        <span class="feature-card__icon feature-card__icon--blue" aria-hidden="true">⌁</span>
+        <h2 data-i18n="welcome_feature_triggers_title">四种触发方式</h2>
+        <p data-i18n="welcome_feature_triggers_desc">长按、拖拽、修饰键点击或悬停后按空格，均可独立启停。</p>
+      </article>
+      <article class="feature-card gp-glass">
+        <span class="feature-card__icon feature-card__icon--purple" aria-hidden="true">▣</span>
+        <h2 data-i18n="welcome_feature_windows_title">真正的多窗口</h2>
+        <p data-i18n="welcome_feature_windows_desc">移动、缩放、固定和并排比较；每个窗口保持自己的最终网址。</p>
+      </article>
+      <article class="feature-card gp-glass">
+        <span class="feature-card__icon feature-card__icon--green" aria-hidden="true">◫</span>
+        <h2 data-i18n="welcome_feature_sidebar_title">按窗口驻留的侧栏</h2>
+        <p data-i18n="welcome_feature_sidebar_desc">不同 Firefox 窗口各自保留侧栏内容，不会互相串页。</p>
+      </article>
+      <article class="feature-card gp-glass">
+        <span class="feature-card__icon feature-card__icon--orange" aria-hidden="true">◇</span>
+        <h2 data-i18n="welcome_feature_fallback_title">清楚的安全回退</h2>
+        <p data-i18n="welcome_feature_fallback_desc">严格网站可仅打开一次或记住；记住后复用一个 Firefox 完整网页小窗，其他网站仍在页内预览。</p>
+      </article>
+    </section>
+
+    <section class="getting-started gp-glass">
+      <div class="getting-started__copy">
+        <p class="section-kicker" data-i18n="welcome_quick_start">快速开始</p>
+        <h2 data-i18n="welcome_try_heading">在任意网页上试试</h2>
+        <ol>
+          <li><span>1</span><p data-i18n="welcome_step_one">把鼠标移到普通的 HTTP 或 HTTPS 链接上。</p></li>
+          <li><span>2</span><p data-i18n="welcome_step_two">长按约半秒，看到蓝色进度环完成后松开。</p></li>
+          <li><span>3</span><p data-i18n="welcome_step_three">拖动顶部区域移动窗口；右键或“更多”菜单可找到全部操作。</p></li>
+        </ol>
+      </div>
+      <div class="shortcut-panel">
+        <h3 data-i18n="welcome_shortcuts">常用快捷键</h3>
+        <div class="shortcut-line"><span data-i18n="shortcut_sidebar_short">发送到侧栏</span><span><kbd>Alt</kbd><b>+</b><kbd>Shift</kbd><b>+</b><kbd>Q</kbd></span></div>
+        <div class="shortcut-line"><span data-i18n="shortcut_tab_short">在新标签打开</span><span><kbd>Alt</kbd><b>+</b><kbd>Shift</kbd><b>+</b><kbd>T</kbd></span></div>
+        <div class="shortcut-line"><span data-i18n="shortcut_close_short">关闭活动预览</span><span><kbd>Esc</kbd></span></div>
+        <div class="shortcut-line"><span data-i18n="shortcut_close_all_short">关闭全部预览</span><span><kbd>Shift</kbd><b>+</b><kbd>Esc</kbd></span></div>
+      </div>
+    </section>
+
+    <aside class="safety-note">
+      <div class="safety-note__mark" aria-hidden="true">✓</div>
+      <div>
+        <h2 data-i18n="welcome_safety_title">尊重网站边界</h2>
+        <p data-i18n="welcome_safety_desc">GlassPeek 只为经过验证的预览树处理嵌入限制，不收集浏览数据；必须使用顶层环境的网站会明确切换到完整网页小窗。</p>
+      </div>
+    </aside>
+
+    <footer>
+      <span id="versionLabel">GlassPeek</span>
+      <span aria-hidden="true">·</span>
+      <span data-i18n="welcome_local_footer">本地运行 · 零数据收集</span>
+    </footer>
+  </main>
+  <script src="../shared/common.js"></script>
+  <script src="welcome.js"></script>
+</body>
+</html>

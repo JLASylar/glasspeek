@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="options_title">GlassPeek 设置</title>
+  <link rel="stylesheet" href="../shared/apple.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-shell">
+    <aside class="options-sidebar gp-glass" aria-label="Settings navigation" data-i18n-aria-label="options_navigation">
+      <div class="brand">
+        <img src="../icons/icon.svg" alt="" width="48" height="48">
+        <div>
+          <div class="brand__name">GlassPeek</div>
+          <div class="brand__version" id="versionLabel">v2</div>
+        </div>
+      </div>
+
+      <nav class="section-nav">
+        <button type="button" class="section-nav__item is-active" data-section="appearance">
+          <span aria-hidden="true">◐</span><span data-i18n="nav_appearance">外观</span>
+        </button>
+        <button type="button" class="section-nav__item" data-section="triggers">
+          <span aria-hidden="true">⌁</span><span data-i18n="nav_triggers">触发</span>
+        </button>
+        <button type="button" class="section-nav__item" data-section="window">
+          <span aria-hidden="true">▣</span><span data-i18n="nav_window">窗口</span>
+        </button>
+        <button type="button" class="section-nav__item" data-section="fallbacks">
+          <span aria-hidden="true">↗</span><span data-i18n="nav_fallbacks">预览行为</span>
+        </button>
+        <button type="button" class="section-nav__item" data-section="sites">
+          <span aria-hidden="true">◎</span><span data-i18n="nav_sites">站点规则</span>
+        </button>
+        <button type="button" class="section-nav__item" data-section="shortcuts">
+          <span aria-hidden="true">⌨</span><span data-i18n="nav_shortcuts">快捷键</span>
+        </button>
+        <button type="button" class="section-nav__item" data-section="advanced">
+          <span aria-hidden="true">⋯</span><span data-i18n="nav_advanced">诊断与重置</span>
+        </button>
+      </nav>
+
+      <p class="privacy-note" data-i18n="options_local_only">配置仅保存在 Firefox 中，不会发送到远程服务器。</p>
+    </aside>
+
+    <main class="options-main">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow" data-i18n="options_eyebrow">GLASSPEEK 2</p>
+          <h1 data-i18n="options_heading">链接预览，按你的方式</h1>
+          <p data-i18n="options_subtitle">细调触发、窗口、站点和安全回退。更改会自动保存。</p>
+        </div>
+        <span class="save-state gp-badge gp-badge--success" id="saveState" role="status" aria-live="polite" data-i18n="save_ready">已就绪</span>
+      </header>
+
+      <form id="settingsForm" novalidate>
+        <section class="settings-section is-active" id="appearance" tabindex="-1">
+          <div class="section-heading">
+            <h2 data-i18n="appearance_title">外观与舒适度</h2>
+            <p data-i18n="appearance_desc">所有扩展界面会实时使用同一主题和动态偏好。</p>
+          </div>
+          <div class="settings-card gp-glass">
+            <div class="setting-row setting-row--stack-mobile">
+              <div class="setting-copy">
+                <label class="setting-title" id="themeLabel" data-i18n="theme_label">主题</label>
+                <p data-i18n="theme_desc">跟随系统，或固定使用浅色或深色。</p>
+              </div>
+              <div class="gp-segmented" role="radiogroup" aria-labelledby="themeLabel">
+                <label><input type="radio" name="theme" value="auto"><span data-i18n="theme_auto">自动</span></label>
+                <label><input type="radio" name="theme" value="light"><span data-i18n="theme_light">浅色</span></label>
+                <label><input type="radio" name="theme" value="dark"><span data-i18n="theme_dark">深色</span></label>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="language" data-i18n="language_label">界面语言</label>
+                <p data-i18n="language_desc">切换后立即更新所有扩展页面。</p>
+              </div>
+              <select id="language" data-setting="language">
+                <option value="auto" data-i18n="language_auto">自动</option>
+                <option value="zh_CN">简体中文</option>
+                <option value="zh_TW">繁體中文</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="reducedMotion" data-i18n="reduced_motion_label">减少动态效果</label>
+                <p data-i18n="reduced_motion_desc">缩短或关闭窗口、菜单和提示动画。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="reducedMotion" type="checkbox" data-setting="reducedMotion">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="backdrop" data-i18n="backdrop_label">背景玻璃</label>
+                <p data-i18n="backdrop_desc">打开预览时轻柔压暗并模糊页面背景；多窗口共用一层。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="backdrop" type="checkbox" data-setting="backdrop">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="settings-section" id="triggers" tabindex="-1">
+          <div class="section-heading">
+            <h2 data-i18n="triggers_title">触发方式</h2>
+            <p data-i18n="triggers_desc">各触发方式相互独立，可以按设备和习惯组合使用。</p>
+          </div>
+          <div class="settings-card gp-glass">
+            <div class="setting-row setting-row--hero">
+              <div class="setting-copy">
+                <label class="setting-title" for="enabled" data-i18n="enabled_label">启用 GlassPeek</label>
+                <p data-i18n="enabled_desc">关闭后不再响应页面手势、菜单或预览快捷键。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="enabled" type="checkbox" data-setting="enabled">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="longPress" data-i18n="long_press_label">长按链接</label>
+                <p data-i18n="long_press_desc">按住链接，在进度完成后打开预览。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="longPress" type="checkbox" data-setting="longPress">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="setting-row setting-row--stack">
+              <div class="setting-copy">
+                <label class="setting-title" for="longPressDelay" data-i18n="long_press_delay_label">长按时长</label>
+                <p data-i18n="long_press_delay_desc">较短更敏捷，较长可减少误触。</p>
+              </div>
+              <div class="range-line">
+                <input id="longPressDelay" type="range" min="300" max="1000" step="50" data-setting="longPressDelay">
+                <output id="longPressDelayValue" for="longPressDelay">500 ms</output>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="showRing" data-i18n="show_ring_label">长按进度环</label>
+                <p data-i18n="show_ring_desc">短暂按压后在光标旁显示进度。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="showRing" type="checkbox" data-setting="showRing">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="drag" data-i18n="drag_label">拖拽链接</label>
+                <p data-i18n="drag_desc">拖动链接并释放，快速创建预览。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="drag" type="checkbox" data-setting="drag">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="dragDropZone" data-i18n="drop_zone_label">底部释放区</label>
+                <p data-i18n="drop_zone_desc">仅拖入明确的玻璃释放区才打开，减少意外触发。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="dragDropZone" type="checkbox" data-setting="dragDropZone">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="modifier" data-i18n="modifier_label">修饰键 + 点击</label>
+                <p data-i18n="modifier_desc">按住所选按键点击链接，不必等待长按。</p>
+              </div>
+              <div class="inline-control">
+                <select id="modifierKey" data-setting="modifierKey" aria-label="Modifier key" data-i18n-aria-label="modifier_key_aria">
+                  <option value="Shift">Shift</option>
+                  <option value="Control">Ctrl</option>
+                  <option value="Alt">Alt</option>
+                  <option value="Meta">Meta / Cmd</option>
+                </select>
+                <label class="gp-switch">
+                  <input id="modifier" type="checkbox" data-setting="modifier">
+                  <span class="gp-switch__track" aria-hidden="true"></span>
+                </label>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="hoverSpace" data-i18n="hover_space_label">悬停 + 空格</label>
+                <p data-i18n="hover_space_desc">光标停在链接上时按空格；表单和编辑区不会触发。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="hoverSpace" type="checkbox" data-setting="hoverSpace">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="settings-section" id="window" tabindex="-1">
+          <div class="section-heading">
+            <h2 data-i18n="window_title">预览窗口</h2>
+            <p data-i18n="window_desc">控制窗口数量、尺寸、位置和关闭方式。</p>
+          </div>
+          <div class="settings-card gp-glass">
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="multiWindow" data-i18n="multi_window_label">多窗口</label>
+                <p data-i18n="multi_window_desc">并排比较多个链接，点击窗口可将其置前。</p>
+              </div>
+              <label class="gp-switch">
+                <input id="multiWindow" type="checkbox" data-setting="multiWindow">
+                <span class="gp-switch__track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="maxWindows" data-i18n="max_windows_label">最多窗口数</label>
+                <p data-i18n="max_windows_desc">达到上限时会显示提示，不会静默失败。</p>
+              </div>
+              <input class="compact-number" id="maxWindows" type="number" min="2" max="10" step="1" data-setting="maxWindows">
+            </div>
+            <div class="setting-row setting-row--stack-mobile">
+              <div class="setting-copy">
+                <label class="setting-title" id="sizeModeLabel" data-i18n="size_mode_label">尺寸单位</label>
+                <p data-i18n="size_mode_desc">使用固定像素或随当前视口变化的百分比。</p>
+              </div>
+              <div class="gp-segmented" role="radiogroup" aria-labelledby="sizeModeLabel">
+                <label><input type="radio" name="sizeMode" value="px"><span data-i18n="size_px">像素</span></label>
+                <label><input type="radio" name="sizeMode" value="percent"><span data-i18n="size_percent">百分比</span></label>
+              </div>
+            </div>
+            <div class="setting-row setting-row--stack">
+              <div class="setting-copy">
+                <span class="setting-title" data-i18n="size_presets_label">尺寸预设</span>
+                <p data-i18n="size_presets_desc">预设会更新当前像素尺寸。</p>
+              </div>
+              <div class="preset-grid" id="sizePresets">
+                <button type="button" class="preset-button" data-width="600" data-height="400"><span data-i18n="size_small">小</span><small>600 × 400</small></button>
+                <button type="button" class="preset-button" data-width="800" data-height="600"><span data-i18n="size_medium">中</span><small>800 × 600</small></button>
+                <button type="button" class="preset-button" data-width="1000" data-height="700"><span data-i18n="size_large">大</span><small>1000 × 700</small></button>
+              </div>
+            </div>
+            <div class="setting-row size-fields" id="pxSizeFields">
+              <div class="field-pair">
+                <label for="widthPx" data-i18n="width_label">宽度</label>
+                <input id="widthPx" type="number" min="400" max="1600" step="10" data-setting="widthPx">
+              </div>
+              <div class="field-pair">
+                <label for="heightPx" data-i18n="height_label">高度</label>
+                <input id="heightPx" type="number" min="300" max="1200" step="10" data-setting="heightPx">
+              </div>
+            </div>
+            <div class="setting-row size-fields" id="percentSizeFields">
+              <div class="field-pair">
+                <label for="widthPercent" data-i18n="width_percent_label">宽度 %</label>
+                <input id="widthPercent" type="number" min="30" max="100" step="1" data-setting="widthPercent">
+              </div>
+              <div class="field-pair">
+                <label for="heightPercent" data-i18n="height_percent_label">高度 %</label>
+                <input id="heightPercent" type="number" min="30" max="100" step="1" data-setting="heightPercent">
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="position" data-i18n="position_label">打开位置</label>
+                <p data-i18n="position_desc">相对光标放置，或固定在屏幕中心。</p>
+              </div>
+              <select id="position" data-setting="position">
+                <option value="cursor-center" data-i18n="position_cursor_center">光标居中</option>
+                <option value="cursor-top-left" data-i18n="position_top_left">光标左上</option>
+                <option value="cursor-top-right" data-i18n="position_top_right">光标右上</option>
+                <option value="cursor-bottom-left" data-i18n="position_bottom_left">光标左下</option>
+                <option value="cursor-bottom-right" data-i18n="position_bottom_right">光标右下</option>
+                <option value="viewport-center" data-i18n="position_viewport_center">屏幕中心</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy"><label class="setting-title" for="pinByDefault" data-i18n="pin_default_label">默认固定</label><p data-i18n="pin_default_desc">新窗口不会因点击页面而关闭。</p></div>
+              <label class="gp-switch"><input id="pinByDefault" type="checkbox" data-setting="pinByDefault"><span class="gp-switch__track" aria-hidden="true"></span></label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy"><label class="setting-title" for="clickOutsideClose" data-i18n="outside_close_label">点击外部关闭</label><p data-i18n="outside_close_desc">固定窗口不受此项影响。</p></div>
+              <label class="gp-switch"><input id="clickOutsideClose" type="checkbox" data-setting="clickOutsideClose"><span class="gp-switch__track" aria-hidden="true"></span></label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy"><label class="setting-title" for="rememberSize" data-i18n="remember_size_label">记住最后尺寸</label><p data-i18n="remember_size_desc">下次打开时恢复手动调整后的大小。</p></div>
+              <label class="gp-switch"><input id="rememberSize" type="checkbox" data-setting="rememberSize"><span class="gp-switch__track" aria-hidden="true"></span></label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy"><label class="setting-title" for="rememberPosition" data-i18n="remember_position_label">记住最后位置</label><p data-i18n="remember_position_desc">会自动约束到当前屏幕可见区域。</p></div>
+              <label class="gp-switch"><input id="rememberPosition" type="checkbox" data-setting="rememberPosition"><span class="gp-switch__track" aria-hidden="true"></span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="settings-section" id="fallbacks" tabindex="-1">
+          <div class="section-heading">
+            <h2 data-i18n="fallbacks_title">原网页预览</h2>
+            <p data-i18n="fallbacks_desc">普通网站保留页内原网页预览；拒绝嵌入的站点可切换并记住完整网页小窗。</p>
+          </div>
+          <div class="settings-card gp-glass">
+            <div class="setting-row">
+              <div class="setting-copy"><span class="setting-title" data-i18n="original_mode_label">原网页唯一模式</span><p data-i18n="original_mode_desc">所有网站始终直接加载你点击的原始网址。</p></div>
+              <span class="rule-item__action" data-i18n="always_on">始终启用</span>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <label class="setting-title" for="addPreviewToHistory" data-i18n="history_label">记录预览历史</label>
+                <p data-i18n="history_desc">关闭时不读取或写入浏览历史；开启后仅把实际预览过的网址加入 Firefox 历史。</p>
+                <p class="permission-state" id="historyPermissionState" role="status" aria-live="polite"></p>
+              </div>
+              <label class="gp-switch"><input id="addPreviewToHistory" type="checkbox" data-setting="addPreviewToHistory"><span class="gp-switch__track" aria-hidden="true"></span></label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy"><label class="setting-title" for="openLinksInNewPreview" data-i18n="new_preview_label">预览内新窗口链接</label><p data-i18n="new_preview_desc">多窗口开启时，把新标签目标放入新的预览窗口。</p></div>
+              <label class="gp-switch"><input id="openLinksInNewPreview" type="checkbox" data-setting="openLinksInNewPreview"><span class="gp-switch__track" aria-hidden="true"></span></label>
+            </div>
+          </div>
+          <div class="list-card gp-glass">
+            <div class="list-card__header">
+              <div>
+                <h3 data-i18n="full_page_sites_title">始终使用完整网页</h3>
+                <p data-i18n="full_page_sites_desc">这些站点会跳过页内预览，并复用一个 Firefox 小窗口；其他网站仍在页内预览。</p>
+              </div>
+            </div>
+            <ul class="rule-list" id="compatDomainList" aria-live="polite"></ul>
+            <p class="empty-list" id="compatDomainEmpty" data-i18n="full_page_sites_empty">还没有记住任何站点。遇到不支持页内显示的网站时，可在预览中一键添加。</p>
+          </div>
+
+        </section>
+
+        <section class="settings-section" id="sites" tabindex="-1">
+          <div class="section-heading">
+            <h2 data-i18n="sites_title">站点规则</h2>
+            <p data-i18n="sites_desc">最具体的域名规则优先，因此可在被阻止的父域下单独允许子域。</p>
+          </div>
+          <div class="settings-card gp-glass">
+            <div class="setting-row">
+              <div class="setting-copy"><label class="setting-title" for="siteFilterMode" data-i18n="filter_mode_label">规则模式</label><p data-i18n="filter_mode_desc">停用规则、默认允许，或只允许名单中的站点。</p></div>
+              <select id="siteFilterMode" data-setting="siteFilterMode">
+                <option value="disabled" data-i18n="filter_disabled">不使用规则</option>
+                <option value="blacklist" data-i18n="filter_blacklist">默认允许</option>
+                <option value="whitelist" data-i18n="filter_whitelist">默认阻止</option>
+              </select>
+            </div>
+          </div>
+          <div class="list-card gp-glass">
+            <div class="list-card__header">
+              <div><h3 data-i18n="site_rules_title">允许与阻止</h3><p data-i18n="site_rules_desc">例如阻止 example.com 后，仍可明确允许 app.example.com。</p></div>
+            </div>
+            <div class="rule-editor rule-editor--site">
+              <label class="gp-sr-only" for="siteRuleInput" data-i18n="domain_label">域名</label>
+              <input id="siteRuleInput" type="text" autocomplete="off" spellcheck="false" placeholder="example.com" data-i18n-placeholder="domain_placeholder">
+              <label class="gp-sr-only" for="siteRuleAction" data-i18n="rule_action_label">规则动作</label>
+              <select id="siteRuleAction">
+                <option value="allow" data-i18n="rule_allow">允许</option>
+                <option value="deny" data-i18n="rule_deny">阻止</option>
+              </select>
+              <button class="gp-button gp-button--primary" type="button" id="addSiteRule" data-i18n="add_button">添加</button>
+            </div>
+            <p class="input-error" id="siteRuleError" role="alert" hidden></p>
+            <ul class="rule-list" id="siteRuleList" aria-live="polite"></ul>
+            <p class="empty-list" id="siteRuleEmpty" data-i18n="site_rules_empty">尚未添加站点规则。</p>
+          </div>
+        </section>
+
+        <section class="settings-section" id="shortcuts" tabindex="-1">
+          <div class="section-heading">
+            <h2 data-i18n="shortcuts_title">快捷键</h2>
+            <p data-i18n="shortcuts_desc">显示 Firefox 实际注册的按键，而不是只展示建议值。</p>
+          </div>
+          <div class="settings-card gp-glass" id="shortcutList" aria-live="polite">
+            <div class="shortcut-row" data-command="open-in-sidebar">
+              <div><strong data-i18n="shortcut_sidebar">活动预览或页面 → 侧栏</strong><p data-i18n="shortcut_sidebar_desc">优先使用最前方预览的最终地址。</p></div>
+              <span class="shortcut-value gp-badge" data-shortcut-value>…</span>
+            </div>
+            <div class="shortcut-row" data-command="open-in-tab">
+              <div><strong data-i18n="shortcut_tab">活动预览或页面 → 新标签</strong><p data-i18n="shortcut_tab_desc">没有预览时使用当前页面。</p></div>
+              <span class="shortcut-value gp-badge" data-shortcut-value>…</span>
+            </div>
+          </div>
+          <div class="section-actions">
+            <button class="gp-button" type="button" id="refreshShortcuts" data-i18n="refresh_shortcuts">刷新状态</button>
+            <button class="gp-button" type="button" id="openShortcutHelp" data-i18n="shortcut_help">打开 Firefox 快捷键管理</button>
+          </div>
+          <p class="gp-help" id="shortcutSummary" role="status"></p>
+        </section>
+
+        <section class="settings-section" id="advanced" tabindex="-1">
+          <div class="section-heading">
+            <h2 data-i18n="advanced_title">诊断与重置</h2>
+            <p data-i18n="advanced_desc">复制不含浏览内容的环境摘要，或恢复所有默认值。</p>
+          </div>
+          <div class="settings-card gp-glass">
+            <div class="setting-row">
+              <div class="setting-copy"><span class="setting-title" data-i18n="diagnostics_label">诊断摘要</span><p data-i18n="diagnostics_desc">包含版本、平台、设置 schema 和快捷键状态，不包含访问网址。</p></div>
+              <button class="gp-button" type="button" id="copyDiagnostics" data-i18n="copy_diagnostics">复制摘要</button>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy"><span class="setting-title" data-i18n="reset_label">恢复默认设置</span><p data-i18n="reset_desc">站点规则和预览偏好也会恢复默认。此操作不会卸载扩展。</p></div>
+              <button class="gp-button gp-button--danger" type="button" id="resetSettings" data-i18n="reset_button">恢复默认</button>
+            </div>
+          </div>
+        </section>
+      </form>
+    </main>
+  </div>
+
+  <div class="gp-status-toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="../shared/common.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_app_name__",
+  "version": "2.4.0",
+  "description": "__MSG_app_description__",
+  "default_locale": "zh_CN",
+  "homepage_url": "https://github.com/JLASylar/glasspeek",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{88cdb8a1-2007-44be-9965-7b08e3518437}",
+      "strict_min_version": "153.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "dns",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking",
+    "history",
+    "clipboardWrite",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "scripts": ["shared/common.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["shared/common.js", "content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    "preview/preview.html",
+    "preview/preview.css",
+    "preview/preview.js",
+    "target/target-bootstrap.html",
+    "target/target-bootstrap.js"
+  ],
+  "content_security_policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src http: https:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'",
+  "browser_action": {
+    "default_title": "__MSG_browser_action_title__",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "sidebar_action": {
+    "default_title": "__MSG_sidebar_action_title__",
+    "default_panel": "sidebar/sidebar.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    },
+    "open_at_install": false
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "open-in-sidebar": {
+      "suggested_key": {
+        "default": "Alt+Shift+Q"
+      },
+      "description": "__MSG_command_open_sidebar__"
+    },
+    "open-in-tab": {
+      "suggested_key": {
+        "default": "Alt+Shift+T"
+      },
+      "description": "__MSG_command_open_tab__"
+    }
+  }
+}

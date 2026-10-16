@@ -1,0 +1,14 @@
+# Local-only working files (never published)
+ACTION-LOG.md
+CLAUDE.md
+ISSUES.md
+backups/
+web-ext-artifacts/
+output/
+tests/artifacts/
+node_modules/
+.playwright-cli/
+*.xpi
+*.zip
+.DS_Store
+Thumbs.db

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GlassPeek</title>
+  <link rel="stylesheet" href="../shared/apple.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup-shell">
+    <header class="popup-header">
+      <div class="brand-mark"><img src="../icons/icon.svg" alt="" width="42" height="42"></div>
+      <div class="popup-title">
+        <h1>GlassPeek</h1>
+        <span id="versionLabel">v2</span>
+      </div>
+      <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+    </header>
+
+    <section class="quick-card gp-glass" aria-labelledby="quickTitle">
+      <h2 class="gp-sr-only" id="quickTitle" data-i18n="popup_quick_settings">快速设置</h2>
+      <div class="popup-row">
+        <div>
+          <label class="popup-row__title" for="enabled" data-i18n="enabled_label">启用 GlassPeek</label>
+          <p data-i18n="popup_global_desc">控制所有页面触发和预览操作。</p>
+        </div>
+        <label class="gp-switch">
+          <input type="checkbox" id="enabled">
+          <span class="gp-switch__track" aria-hidden="true"></span>
+        </label>
+      </div>
+      <div class="popup-row" id="siteRow">
+        <div class="site-copy">
+          <label class="popup-row__title" for="siteEnabled" data-i18n="popup_site_enabled">在此站点启用</label>
+          <p class="site-host" id="siteHost">—</p>
+          <p class="site-reason" id="siteReason"></p>
+        </div>
+        <label class="gp-switch">
+          <input type="checkbox" id="siteEnabled">
+          <span class="gp-switch__track" aria-hidden="true"></span>
+        </label>
+      </div>
+    </section>
+
+    <div class="quick-actions">
+      <button class="gp-button gp-button--primary" type="button" id="openSidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M15 3v18"></path></svg>
+        <span data-i18n="popup_open_sidebar">在侧栏打开</span>
+      </button>
+      <button class="gp-button" type="button" id="openOptions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.86 2.86-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21H9.55v-.1A1.7 1.7 0 0 0 8.5 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.86-2.86.06-.06A1.7 1.7 0 0 0 4.1 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H2.3V9.55h.1A1.7 1.7 0 0 0 4.1 8.5a1.7 1.7 0 0 0-.34-1.88l-.06-.06L6.56 3.7l.06.06A1.7 1.7 0 0 0 8.5 4.1a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V2.3h4.05v.1A1.7 1.7 0 0 0 15 4.1a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.86 2.86-.06.06A1.7 1.7 0 0 0 19.4 8.5c.12.39.33.73.6 1 .3.27.67.4 1.1.4h.1v4.05h-.1a1.7 1.7 0 0 0-1.7 1.05Z"></path></svg>
+        <span data-i18n="popup_open_settings">设置</span>
+      </button>
+    </div>
+
+    <footer class="popup-footer">
+      <span data-i18n="popup_hint">长按、拖拽或使用你选择的修饰键预览链接</span>
+      <span class="popup-message" id="popupMessage" role="status" aria-live="polite"></span>
+    </footer>
+  </main>
+  <script src="../shared/common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

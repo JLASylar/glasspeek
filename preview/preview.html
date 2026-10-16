@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GlassPeek</title>
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <main id="surface" class="surface is-loading" role="dialog" aria-modal="false" aria-labelledby="pageTitle">
+    <header id="dragHandle" class="titlebar" tabindex="0" aria-label="Preview window. Use arrow keys to move; Shift plus arrow keys to resize.">
+      <button id="close" class="icon-button close-button" type="button" aria-label="Close preview" title="Close preview">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+      </button>
+      <span id="pinGlow" class="pin-glow" aria-hidden="true"></span>
+      <div class="navigation-actions" role="group" aria-label="Preview navigation">
+        <button id="back" class="icon-button navigation-button" type="button" aria-label="Back" title="Back" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6-6 6 6 6"/></svg>
+        </button>
+        <button id="forward" class="icon-button navigation-button" type="button" aria-label="Forward" title="Forward" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"/></svg>
+        </button>
+      </div>
+      <img id="favicon" class="favicon" src="../icons/icon.svg" alt="" referrerpolicy="no-referrer">
+      <div class="identity">
+        <div id="pageTitle" class="domain">GlassPeek</div>
+        <button id="pageUrl" class="url" type="button" dir="auto" aria-label="Copy final URL">Secure link preview</button>
+      </div>
+      <div class="primary-actions">
+        <button id="pin" class="icon-button" type="button" aria-label="Pin preview" title="Pin preview" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6l.8 6 2.7 2.7a1 1 0 0 1-.7 1.7H6.2a1 1 0 0 1-.7-1.7L8.2 10 9 4Z"/><path d="M12 14.5V21"/></svg>
+        </button>
+        <button id="reload" class="icon-button" type="button" aria-label="Reload" title="Reload" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.35 5.65"/><path d="M20 5v6h-6"/></svg>
+        </button>
+        <button id="stop" class="icon-button" type="button" aria-label="Stop" title="Stop">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+        </button>
+        <button id="fullPage" class="icon-button" type="button" aria-label="Open in a full-page window and remember this site" title="Open in a full-page window and remember this site">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/><path d="m14 13 2-2 2 2M16 11v5"/></svg>
+        </button>
+        <button id="openTab" class="icon-button" type="button" aria-label="Open in new tab" title="Open in new tab">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8"/><path d="M17 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h5"/></svg>
+        </button>
+        <button id="more" class="icon-button" type="button" aria-label="More actions" title="More actions" aria-haspopup="menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.2" class="fill"/><circle cx="12" cy="12" r="1.2" class="fill"/><circle cx="19" cy="12" r="1.2" class="fill"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="viewport" aria-label="Preview content">
+      <div id="loading" class="state loading-state" role="status" aria-live="polite">
+        <div class="loading-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div id="loadingTitle" class="state-title">Opening a secure preview…</div>
+        <div id="loadingDetail" class="state-detail">Only this verified preview tree's embedding restriction may be relaxed; other site policies stay in force.</div>
+        <div class="skeleton" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div id="error" class="state error-state" role="alert" tabindex="-1" hidden>
+        <div class="status-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3 3.8 18a1.2 1.2 0 0 0 1.05 1.8h14.3A1.2 1.2 0 0 0 20.2 18L12 3Z"/><path d="M12 8v5M12 16.5v.1"/></svg>
+        </div>
+        <div id="errorTitle" class="state-title">This page protects itself from embedded viewing</div>
+        <div id="errorDetail" class="state-detail">Firefox still refused this embedded page. Retry, or explicitly open the original page in a full-page window.</div>
+        <div class="action-row">
+          <button id="retry" class="action primary" type="button">Retry</button>
+          <button id="compat" class="action" type="button">Original-page window</button>
+          <button id="errorOpenTab" class="action" type="button">New tab</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="menu" class="menu" role="menu" aria-label="Preview actions" hidden>
+      <button type="button" role="menuitem" data-action="copy">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h2"/></svg><span>Copy final URL</span>
+      </button>
+      <button type="button" role="menuitem" data-action="sidebar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M14 5v14"/></svg><span>Open in sidebar</span>
+      </button>
+      <button type="button" role="menuitem" data-action="compat">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/></svg><span>Original-page window</span>
+      </button>
+      <hr>
+      <button type="button" role="menuitem" data-action="close-all" class="danger">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10H7z"/><path d="m9 9 6 6M15 9l-6 6"/></svg><span>Close all previews</span>
+      </button>
+    </div>
+
+    <div id="live" class="sr-only" aria-live="polite"></div>
+    <div class="resize n" data-edge="n" aria-hidden="true"></div>
+    <div class="resize s" data-edge="s" aria-hidden="true"></div>
+    <div class="resize e" data-edge="e" aria-hidden="true"></div>
+    <div class="resize w" data-edge="w" aria-hidden="true"></div>
+    <div class="resize ne" data-edge="ne" aria-hidden="true"></div>
+    <div class="resize nw" data-edge="nw" aria-hidden="true"></div>
+    <div class="resize se" data-edge="se" aria-hidden="true"></div>
+    <div class="resize sw" data-edge="sw" aria-hidden="true"></div>
+  </main>
+  <script src="../shared/common.js"></script>
+  <script src="preview.js"></script>
+</body>
+</html>

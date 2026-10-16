@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="sidebar_title">GlassPeek 侧栏</title>
+  <link rel="stylesheet" href="../shared/apple.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <header class="sidebar-bar gp-glass">
+    <div class="page-identity">
+      <span class="page-identity__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>
+      </span>
+      <div class="page-identity__copy">
+        <strong id="pageHost">GlassPeek</strong>
+        <span id="pageUrl"></span>
+      </div>
+    </div>
+    <div class="bar-actions">
+      <button class="gp-icon-button" type="button" id="reload" title="刷新" data-i18n-title="refresh_button" data-i18n-aria-label="refresh_button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66"></path><path d="M20 5v6h-6"></path></svg>
+      </button>
+      <button class="gp-icon-button" type="button" id="openTab" title="在新标签页打开" data-i18n-title="open_tab_button" data-i18n-aria-label="open_tab_button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"></path><path d="M14 4h6v6M20 4 10 14"></path></svg>
+      </button>
+      <button class="gp-icon-button" type="button" id="openSettings" title="设置" data-i18n-title="popup_open_settings" data-i18n-aria-label="popup_open_settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06-2.83 2.83-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21h-4v-.09a1.65 1.65 0 0 0-1.08-1.5 1.65 1.65 0 0 0-1.82.33l-.06.06-2.83-2.83.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3v-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06 2.83-2.83.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3h4v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06 2.83 2.83-.06.06A1.65 1.65 0 0 0 19.4 9c.12.37.33.71.6 1 .28.27.63.43 1 .46h.09v4H21c-.39.02-.75.18-1 .46-.27.28-.48.62-.6 1.08Z"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="sidebar-content" id="sidebarContent">
+    <section class="sidebar-state sidebar-state--empty" id="emptyState">
+      <div class="state-illustration">
+        <img src="../icons/icon.svg" alt="" width="64" height="64">
+      </div>
+      <h1 data-i18n="sidebar_empty_title">准备预览</h1>
+      <p data-i18n="sidebar_empty_desc">使用快捷键发送当前页面，或在预览窗口中选择在侧栏打开。</p>
+      <div class="shortcut-hint"><kbd>Alt</kbd><span>+</span><kbd>Shift</kbd><span>+</span><kbd>Q</kbd></div>
+      <button class="gp-button" type="button" id="emptySettings" data-i18n="sidebar_customize">个性化设置</button>
+    </section>
+
+    <section class="sidebar-state sidebar-state--loading" id="loadingState" hidden aria-live="polite">
+      <div class="loading-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h1 data-i18n="sidebar_loading_title">正在打开预览</h1>
+      <p class="loading-url" id="loadingUrl"></p>
+    </section>
+
+    <section class="sidebar-state sidebar-state--error" id="errorState" hidden role="alert">
+      <div class="error-symbol" aria-hidden="true">!</div>
+      <h1 id="errorTitle" data-i18n="sidebar_error_title">无法在侧栏显示</h1>
+      <p id="errorMessage" data-i18n="sidebar_error_desc">网站可能不允许被嵌入。你仍可在新标签页或原网页窗口中打开。</p>
+      <p class="error-url" id="errorUrl"></p>
+      <div class="error-actions">
+        <button class="gp-button gp-button--primary" type="button" id="retry" data-i18n="retry_button">重试</button>
+        <button class="gp-button" type="button" id="openCompat" data-i18n="open_compat_button">原网页窗口</button>
+        <button class="gp-button" type="button" id="errorOpenTab" data-i18n="open_tab_button">新标签页</button>
+      </div>
+    </section>
+
+    <div class="frame-shell" id="frameShell" hidden>
+      <div class="frame-notice" id="frameNotice" hidden role="status">
+        <span data-i18n="sidebar_embed_notice">若内容空白，网站可能禁止嵌入；可使用原网页窗口。</span>
+        <button type="button" id="noticeCompat" data-i18n="open_compat_button">原网页窗口</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../shared/common.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+</html>
